@@ -1,26 +1,34 @@
 import { IProduct } from '../interfaces';
 
 class Inventory {
-  items: IProduct[] = [];
+  products: IProduct[] = [];
 
-  getItemsCount = () => {
-    return this.items.length;
+  stockedProducts = () => {
+    let availableProducts: string = '';
+    this.products.map((product) => {
+      availableProducts += `${product.name}, `;
+    });
+    return `Stocked Products: ${availableProducts}`;
+  };
+
+  getProductCount = () => {
+    return this.products.length;
   };
 
   removeProduct = (product: IProduct) => {
-    this.items = this.items.filter((item) => {
+    this.products = this.products.filter((item) => {
       return item.id === product.id;
     });
   };
 
   addProduct = (product: IProduct) => {
-    this.items.push(product);
+    this.products.push(product);
   };
 
   editProduct = (product: IProduct) => {
-    this.items.map((item) => {
+    this.products.map((item, index) => {
       if (item.id === product.id) {
-        item = product;
+        this.products[index] = product;
       }
     });
   };
